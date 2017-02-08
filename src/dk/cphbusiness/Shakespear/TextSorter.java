@@ -1,0 +1,72 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dk.cphbusiness.Shakespear;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author michael
+ */
+public class TextSorter {
+    private static String[] shakespeare;
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        int sizeLimit = 100000;
+        boolean ok = false;
+        Stopwatch sw = new Stopwatch();
+        
+        String path = "C:\\Users\\nickl\\Documents\\Algorithms\\Shakespear\\shakespeare-complete-works.txt";
+//        String path = "C:\\datamatiker\\algorithms_course\\shakespeare\\shakespeare_original_complete.txt";
+        String delimiterPattern = "[^A-Za-z]";
+        try {
+            shakespeare = FileUtility.toStringArray(path, delimiterPattern);
+        } catch (IOException ex) {
+            Logger.getLogger(TextSorter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //part of file
+//        String[] toBeSorted = Arrays.copyOfRange(shakespeare, 0, sizeLimit);
+        
+        //full file
+        String[] toBeSorted = shakespeare;
+        
+        String[] insertionSorted = toBeSorted.clone();
+        String[] selectionSorted = toBeSorted.clone();
+        String[] mergeSorted = toBeSorted.clone();
+        
+        //Selection sort
+//        sw.start();
+//        SortingAlgorithms.selectionSort(selectionSorted);
+//        sw.stop();
+//        ok = SortingAlgorithms.isSorted(selectionSorted);
+//        System.out.println("is it sorted: " + ok);
+//        
+//        System.out.println("selection sort took " + sw.timeElapsed() + " milliseconds");
+//        
+//        //Insertion sort
+//        sw.start();
+//        SortingAlgorithms.insertionSort(insertionSorted);
+//        sw.stop();
+//        ok = SortingAlgorithms.isSorted(insertionSorted);
+//        System.out.println("is it sorted: " + ok);
+//        
+//        System.out.println("insertion sort took " + sw.timeElapsed() + " milliseconds");
+        
+        //Merge sort
+        sw.start();
+        SortingAlgorithms.mergeSort(mergeSorted);
+        sw.stop();
+        ok = SortingAlgorithms.isSorted(mergeSorted);
+        System.out.println("is it sorted: " + ok);
+        
+        System.out.println("merge sort took " + sw.timeElapsed() + " milliseconds");
+    }
+}
