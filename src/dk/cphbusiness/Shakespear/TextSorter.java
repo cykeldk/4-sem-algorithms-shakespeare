@@ -20,12 +20,13 @@ public class TextSorter {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int sizeLimit = 100000;
+        int sizeLimit = 50;
         boolean ok = false;
         Stopwatch sw = new Stopwatch();
         
-        String path = "C:\\Users\\nickl\\Documents\\Algorithms\\Shakespear\\shakespeare-complete-works.txt";
+//        String path = "C:\\Users\\nickl\\Documents\\Algorithms\\Shakespear\\shakespeare-complete-works.txt";
 //        String path = "C:\\datamatiker\\algorithms_course\\shakespeare\\shakespeare_original_complete.txt";
+        String path = "C:\\Users\\Michael\\Documents\\NetBeansProjects\\SortingAlgorithms\\shakespeare-complete-works.txt";
         String delimiterPattern = "[^A-Za-z]";
         try {
             shakespeare = FileUtility.toStringArray(path, delimiterPattern);
@@ -38,9 +39,10 @@ public class TextSorter {
         //full file
         String[] toBeSorted = shakespeare;
         
-        String[] insertionSorted = toBeSorted.clone();
-        String[] selectionSorted = toBeSorted.clone();
+//        String[] insertionSorted = toBeSorted.clone();
+//        String[] selectionSorted = toBeSorted.clone();
         String[] mergeSorted = toBeSorted.clone();
+        String[] mergeSorted2 = toBeSorted.clone();
         
         //Selection sort
 //        sw.start();
@@ -68,5 +70,17 @@ public class TextSorter {
         System.out.println("is it sorted: " + ok);
         
         System.out.println("merge sort took " + sw.timeElapsed() + " milliseconds");
+        
+        // merge Sort 2
+        
+        sw.start();
+        mergeSorted2 = SortingAlgorithms.mergeSort2(mergeSorted2);
+        sw.stop();
+        ok = SortingAlgorithms.isSorted(mergeSorted2);
+        System.out.println("is it sorted: " + ok);
+//        SortingAlgorithms.printArray(mergeSorted2);
+        System.out.println("merge2 sort took " + sw.timeElapsed() + " milliseconds");
+        
+        
     }
 }
