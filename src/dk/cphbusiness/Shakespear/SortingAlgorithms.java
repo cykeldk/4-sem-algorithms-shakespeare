@@ -5,6 +5,8 @@
  */
 package dk.cphbusiness.Shakespear; 
 
+import java.util.Arrays;
+
 /**
  *
  * @author michael
@@ -100,6 +102,88 @@ public class SortingAlgorithms {
                 names[i] = right[b];
                 b++;
             }
+        }
+    }
+    
+    public static String[] mergeSort2(String[] selectionArray){
+        int length = selectionArray.length;
+        if (length <= 1){
+            return selectionArray;
+        }
+        String[] leftArray = Arrays.copyOfRange(selectionArray, 0, length/2);
+        String[] rightArray = Arrays.copyOfRange(selectionArray, length/2, selectionArray.length);
+        leftArray = mergeSort2(leftArray);
+        rightArray = mergeSort2(rightArray);
+        return merge2(leftArray, rightArray);
+    }
+
+    private static String[] merge2(String[] left, String[] right){
+        String[] res = new String[left.length + right.length];
+        
+        
+        int leftCount = 0;
+        int rightCount = 0;
+        for (int i = 0; i < res.length; i++) {
+            if (leftCount >= left.length){
+//                System.out.println("left count >= size");
+                System.arraycopy(right, rightCount, res, i, right.length - rightCount);
+                return res;
+            }
+            else if(rightCount >= right.length){
+//                System.out.println("right count >= size");
+                System.arraycopy(left, leftCount, res, i, left.length - leftCount);
+                return res;
+            }
+            else if(left[leftCount].compareToIgnoreCase(right[rightCount])<=0){
+//                System.out.println("adding from left to result");
+                res[i] = left[leftCount];
+                leftCount++;
+            }
+            else{
+//                System.out.println("adding from right to result");
+                res[i] = right[rightCount];
+                rightCount++;
+            }
+//            System.out.println("printing resulting array after each loop");
+//        printArray(res);
+            
+        }
+//        System.out.println("printing resulting array before return statement");
+//        printArray(res);
+        
+        // merge2 sort took 328784 milliseconds
+        /*
+        for (int i = 0; i < res.length; i++) {
+            if (left.length < 1){
+                System.arraycopy(right, 0, res, i, right.length);
+                return res;
+            }
+            else if(right.length < 1){
+                System.arraycopy(left, 0, res, i, left.length);
+                return res;
+            }
+            else if(left[0].compareToIgnoreCase(right[0])<=0){
+                res[i] = left[0];
+                left = Arrays.copyOfRange(left, 1, left.length);
+            }
+            else{
+                res[i] = right[0];
+                right = Arrays.copyOfRange(right, 1, right.length);
+            }
+        }
+        */
+        return res;
+    }
+    
+    public static void printArray(String[] print){
+        int counter = 0;
+        int wordsPerLine = 30;
+        while (counter<print.length){
+            for (int i = 0; i < wordsPerLine; i++) {
+                if(counter < print.length) System.out.print(print[counter] + " ");
+                counter++;
+            }
+            System.out.println("");
         }
     }
 }
